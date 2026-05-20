@@ -1,9 +1,14 @@
-# Cloudflare Pages configuration.
-# docs.permyt.io is a static Starlight build — no Worker runtime, no adapter.
+# Cloudflare Workers + Static Assets configuration.
+# docs.permyt.io is a static Starlight build — no Worker runtime code; the
+# `[assets]` block tells the Workers runtime to serve `dist/` directly.
 #
 # Project settings on the Cloudflare dashboard:
 #   Build command:        npm run build
-#   Build output directory: dist
-#   Environment variable:  NODE_VERSION = 22   (or rely on .nvmrc)
+#   Deploy command:       npx wrangler deploy
+#   Environment variable: NODE_VERSION = 22
 name = "permyt-docs"
-pages_build_output_dir = "dist"
+compatibility_date = "2026-05-20"
+
+[assets]
+directory = "./dist"
+not_found_handling = "404-page"
