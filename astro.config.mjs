@@ -79,6 +79,17 @@ export default defineConfig({
           ],
         },
         {
+          label: 'Examples',
+          items: [{ label: 'Live demos', slug: 'examples' }],
+        },
+        {
+          label: 'SDKs',
+          items: [
+            { label: 'Overview', slug: 'sdks' },
+            { label: 'Python', slug: 'sdks/python' },
+          ],
+        },
+        {
           label: 'The Permyt app',
           items: [{ label: 'The Permyt app', slug: 'app/permyt-app' }],
         },

@@ -1,0 +1,74 @@
+---
+title: Live demos
+description: Working reference apps that show different Permyt patterns end to end — each one runs live and has its source on GitHub.
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+Each demo below is a working Django app that integrates the
+[Python SDK](/sdks/python/). They are deployed live so you can try the flow
+yourself, and the source is on GitHub so you can read the integration code.
+
+Together they cover the patterns most services will need: starting a flow
+from a QR scan, locking inputs at the broker, predicate scopes that answer
+questions instead of returning data, dynamic scope catalogues, and the
+simplest possible requester.
+
+<CardGrid>
+  <Card title="Hotel — booking and background payment" icon="rocket">
+    A booking site that starts the check-in by scanning a QR code and pays in
+    the background. The QR is a Permyt Connect token that links the booking
+    to a user. Once linked, the pay endpoint calls `request_access()` with a
+    plain-English description (`"Pay €X to IBAN Y for an N-night stay"`) and
+    the page returns immediately — the user approves on their phone while the
+    booking moves to `PAYMENT_REQUESTED`.
+
+    [Live →](https://hotel.permyt.io)
+    · [Source on GitHub →](https://github.com/permyt/permyt-demo-hotel)
+  </Card>
+
+  <Card title="Bank — broker-locked inputs" icon="seti:lock">
+    A provider holding a fake account per user (IBAN, balance, movements).
+    The `payment.send` scope locks `account`, `value`, and `currency` to the
+    token at issuance — the user approves exact values on their phone and
+    tampering between approval and execution is rejected. `name` and
+    `description` stay free so the requester can fill them at call time
+    without re-prompting the user.
+
+    [Live →](https://bank.permyt.io)
+    · [Source on GitHub →](https://github.com/permyt/permyt-demo-bank)
+  </Card>
+
+  <Card title="Government — predicate scopes" icon="approve-check">
+    An identity provider that answers questions instead of returning fields.
+    `is_older.check(min_age=18)` returns a boolean without revealing the
+    birthdate; `is_resident_of.check(country_code)` and
+    `vat_matches.check(value)` follow the same pattern. The input is locked
+    at the broker, so the predicate the user approved is the one executed.
+
+    [Live →](https://government.permyt.io)
+    · [Source on GitHub →](https://github.com/permyt/permyt-demo-government)
+  </Card>
+
+  <Card title="Provider — dynamic scopes" icon="setting">
+    A note-vault provider whose scope catalogue is generated from runtime
+    data. A superuser can add or remove fields at any time; each field
+    auto-generates a `<field>.read` and `<field>.write` scope, which are
+    pushed to the broker via `update_scopes()`. Connected requesters and
+    users see the new catalogue immediately — no redeploy.
+
+    [Live →](https://provider.permyt.io)
+    · [Source on GitHub →](https://github.com/permyt/permyt-demo-provider)
+  </Card>
+
+  <Card title="Requester — ask Permyt in plain English" icon="comment">
+    The smallest useful requester. A view takes a natural-language
+    description from the user and calls `client.request_access()`; the
+    broker's AI picks the scopes, the user approves on mobile, and the app
+    polls until tokens land. No scope names hard-coded on the requester
+    side.
+
+    [Live →](https://requester.permyt.io)
+    · [Source on GitHub →](https://github.com/permyt/permyt-demo-requester)
+  </Card>
+</CardGrid>
