@@ -1,0 +1,31 @@
+---
+title: SDKs
+description: Language packages that wrap the Permyt protocol — cryptography, signature verification, replay protection, and the broker API surface.
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+A Permyt SDK is a thin wrapper over the [broker protocol](/protocol/overview/).
+It handles the cryptography (ES256 signing, JWE encryption), signature
+verification, nonce and timestamp checks, and the routing between the
+requester, provider, and connect endpoints. Your service only implements the
+parts that depend on your data — who your users are, where you store tokens,
+and what each scope does.
+
+The protocol is open: an SDK in any language can be built against the
+[Broker API reference](/protocol/api/). Below are the SDKs currently
+maintained by the Permyt team.
+
+<CardGrid>
+  <Card title="Python" icon="seti:python">
+    The reference SDK. Used by every demo at [Examples](/examples/).
+
+    [Read the Python SDK guide →](/sdks/python/)
+  </Card>
+</CardGrid>
+
+## More languages
+
+SDKs in additional languages are in the works. Until they land, the
+[Broker API reference](/protocol/api/) documents every endpoint and payload
+shape so the protocol can be implemented directly.

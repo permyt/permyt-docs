@@ -1,0 +1,66 @@
+---
+title: Python SDK
+description: The official Python package for building Permyt requesters, providers, and connectors.
+---
+
+The Python SDK is the reference implementation of the Permyt protocol. It is
+the package every [example](/examples/) is built on, and the fastest path to
+integrating Permyt into a Django, FastAPI, or Flask service.
+
+- **Package:** [`permyt`](https://pypi.org/project/permyt/) on PyPI
+- **Source:** [github.com/permyt/permyt-api-python](https://github.com/permyt/permyt-api-python)
+- **Requires:** Python 3.10 or newer
+
+## Install
+
+```bash
+pip install permyt
+```
+
+## What the SDK does for you
+
+- **Cryptography** — ES256 signing of `proof` JWTs, JWE encryption
+  (`ECDH-ES+A256KW`, `A256GCM`) of payloads.
+- **Verification** — checks the broker's signature on every inbound message,
+  recomputes the payload hash bound to the proof, and rejects mismatches.
+- **Replay protection** — enforces the nonce and timestamp window. You only
+  implement the storage hook for seen nonces.
+- **Routing** — `handle_inbound()` is a single dispatcher that routes by the
+  `action` field, so one webhook endpoint covers Connect callbacks, request
+  status updates, token issuance, and service calls.
+
+## API surface
+
+Every service subclasses `PermytClient` and implements the methods relevant
+to the roles it plays.
+
+| Method                          | Role        | Purpose                                                          |
+| ------------------------------- | ----------- | ---------------------------------------------------------------- |
+| `get_service_id()`              | all         | Your registered service ID.                                      |
+| `get_private_key()`             | all         | Path to your ES256 private key.                                  |
+| `get_permyt_public_key()`       | all         | Broker's public key, used to verify inbound signatures.          |
+| `_validate_nonce_and_timestamp` | all         | Reject replays and stale messages.                               |
+| `request_access(...)`           | requester   | Submit a plain-English access request to the broker.             |
+| `check_access(request_id)`      | requester   | Poll for status as the request moves through its lifecycle.      |
+| `call_services(...)`            | requester   | Execute approved provider calls with broker-issued tokens.       |
+| `resolve_user(...)`             | provider    | Map a `permyt_user_id` to your local user.                       |
+| `store_token(...)`              | provider    | Persist a broker-issued single-use token with its scope.         |
+| `get_token_metadata(...)`       | provider    | Look up and consume a single-use token at call time.             |
+| `get_endpoints_for_scope(...)`  | provider    | Map approved scopes to your provider endpoint URLs.              |
+| `process_request(...)`          | provider    | Execute a granted scope against user data.                       |
+| `generate_connect_token(...)`   | connect     | Produce the payload behind a QR, NFC tap, or Connect button.     |
+| `process_user_connect(...)`     | connect     | Link or create a local user when a Permyt user connects.         |
+| `process_user_disconnect(...)`  | connect     | Tear down the link when a user disconnects.                      |
+| `handle_inbound(payload)`       | all         | Single-endpoint dispatcher — routes inbound messages by action.  |
+| `update_scopes(scopes)`         | provider    | Push your scope catalogue to the broker.                         |
+
+## Where to go next
+
+- [Quickstart](/build/quickstart/) — install the SDK, register a service,
+  submit a first request.
+- [Build a Requester](/build/requester/) — implement the requester role
+  end to end.
+- [Build a Provider](/build/provider/) — implement the provider role,
+  including scope catalogues and token storage.
+- [Live demos](/examples/) — read the SDK in production-shape code.
+- [Broker API reference](/protocol/api/) — the protocol underneath the SDK.
