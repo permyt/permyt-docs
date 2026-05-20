@@ -1,0 +1,110 @@
+---
+// Custom splash hero: full Permyt lockup (shield mark + wordmark) in place of
+// the title text, no side image. The H1 is kept visually hidden so the page
+// still has an accessible title for screen readers, search, and Pagefind.
+import { LinkButton } from '@astrojs/starlight/components';
+
+// Mirrors Starlight's internal constants.PAGE_TITLE_ID — kept local because
+// the package does not export `./constants` to consumers.
+const PAGE_TITLE_ID = '_top';
+
+const { data } = Astro.locals.starlightRoute.entry;
+const { title = data.title, tagline, actions = [] } = data.hero || {};
+---
+
+<div class="hero">
+  <div class="sl-flex stack">
+    <h1 id={PAGE_TITLE_ID} data-page-title class="sr-only" set:html={title} />
+    <div class="lockup" aria-hidden="true">
+      <img class="logo-mark dark:sl-hidden" alt="" src="/logos/logo-dark.svg" />
+      <img class="logo-mark light:sl-hidden" alt="" src="/logos/logo-light.svg" />
+      <img class="logo-text dark:sl-hidden" alt="" src="/logos/text-dark.svg" />
+      <img class="logo-text light:sl-hidden" alt="" src="/logos/text-light.svg" />
+    </div>
+    {tagline && <div class="tagline" set:html={tagline} />}
+    {
+      actions.length > 0 && (
+        <div class="sl-flex actions">
+          {actions.map(
+            ({ attrs: { class: className, ...attrs } = {}, icon, link: href, text, variant }) => (
+              <LinkButton {href} {variant} icon={icon?.name} class:list={[className]} {...attrs}>
+                {text}
+                {icon?.html && <Fragment set:html={icon.html} />}
+              </LinkButton>
+            )
+          )}
+        </div>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .hero {
+    display: grid;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    padding-block: clamp(2.5rem, calc(1rem + 10vmin), 8rem);
+  }
+
+  .stack {
+    flex-direction: column;
+    gap: clamp(1.5rem, calc(1.5rem + 1vw), 2rem);
+    text-align: center;
+    align-items: center;
+  }
+
+  .lockup {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    flex-wrap: nowrap;
+  }
+
+  .lockup .logo-mark {
+    height: clamp(1.9rem, calc(1.1rem + 3vw), 3.2rem);
+    width: auto;
+  }
+
+  .lockup .logo-text {
+    /* Wordmark reads best a touch shorter than the shield, matching the navbar. */
+    height: clamp(1.25rem, calc(0.75rem + 2vw), 2.1rem);
+    width: auto;
+  }
+
+  .tagline {
+    font-size: clamp(var(--sl-text-base), calc(0.0625rem + 2vw), var(--sl-text-xl));
+    color: var(--sl-color-gray-2);
+    max-width: 50ch;
+  }
+
+  .actions {
+    gap: 1rem 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (min-width: 50rem) {
+    .stack {
+      text-align: start;
+      align-items: flex-start;
+    }
+
+    .actions {
+      justify-content: flex-start;
+    }
+  }
+</style>

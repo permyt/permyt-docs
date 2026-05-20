@@ -1,0 +1,21 @@
+{
+  "name": "permyt-docs",
+  "version": "1.0.0",
+  "description": "Documentation site for Permyt — the authorization layer between services, agents, and user data.",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@astrojs/starlight": "^0.34.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@fontsource/space-grotesk": "^5.2.10",
+    "astro": "^5.18.1",
+    "sharp": "^0.34.5"
+  }
+}

@@ -1,0 +1,58 @@
+---
+title: Permyt
+description: Permyt is the authorization layer between services, agents, and the data they need.
+template: splash
+hero:
+  tagline: The authorization layer between services, agents, and the data they need.
+  actions:
+    - text: How it works
+      link: /concepts/how-it-works/
+      icon: right-arrow
+    - text: Build with Permyt
+      link: /build/overview/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+When an AI agent, an app, or a service needs verified data about a user — or
+permission to act on their behalf — it asks Permyt in plain English. The user
+sees the request on their phone and taps Accept or Deny. If they approve,
+Permyt issues scoped tokens that let the requester reach the source services
+directly.
+
+Permyt brokers the authorization. It never sees, stores, or handles the data
+itself.
+
+<CardGrid stagger>
+  <Card title="How it works" icon="open-book">
+    Follow a request from a plain-English description to a scoped token, and
+    see where the user steps in. [Read the walkthrough](/concepts/how-it-works/).
+  </Card>
+  <Card title="The three roles" icon="puzzle">
+    Requester, Provider, User — who asks, who answers, and who decides.
+    [Meet the roles](/concepts/roles/).
+  </Card>
+  <Card title="Build with Permyt" icon="rocket">
+    Add Permyt to a service as a requester, a provider, or both.
+    [Start building](/build/overview/).
+  </Card>
+  <Card title="Protocol reference" icon="seti:lock">
+    The cycles, the cryptography, and the broker API in full.
+    [Read the reference](/protocol/overview/).
+  </Card>
+</CardGrid>
+
+## What you can do with Permyt
+
+A lender asks for the data it needs to assess a mortgage and the customer
+approves it once — income from their bank, employment from an HR system, debts
+from a credit bureau, identity from a passport authority. An agent reads
+ninety days of transactions with a single tap instead of a shared password. A
+recruiter confirms employment without chasing a letter. Every one of these is
+the same shape: a request in plain English, a decision on the user's phone,
+and data that flows straight from the source.
+
+The user's experience is the one they already know from their phone: answer
+once, or answer always. Revoke at any time. Every access is logged.

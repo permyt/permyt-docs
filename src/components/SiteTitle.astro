@@ -1,0 +1,31 @@
+---
+// Custom site title: the full Permyt lockup — shield mark + wordmark —
+// with light/dark variants, matching the brand site's navbar.
+const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title sl-flex" translate="no">
+  <img class="logo-mark dark:sl-hidden" alt="" src="/logos/logo-dark.svg" />
+  <img class="logo-mark light:sl-hidden" alt="" src="/logos/logo-light.svg" />
+  <img class="logo-text dark:sl-hidden" alt={siteTitle} src="/logos/text-dark.svg" />
+  <img class="logo-text light:sl-hidden" alt={siteTitle} src="/logos/text-light.svg" />
+</a>
+
+<style>
+  .site-title {
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+    white-space: nowrap;
+    min-width: 0;
+  }
+  .logo-mark {
+    height: calc((var(--sl-nav-height) - 2 * var(--sl-nav-pad-y)) * 0.78);
+    width: auto;
+  }
+  .logo-text {
+    /* The wordmark reads best a little shorter than the mark. */
+    height: calc((var(--sl-nav-height) - 2 * var(--sl-nav-pad-y)) * 0.48);
+    width: auto;
+  }
+</style>

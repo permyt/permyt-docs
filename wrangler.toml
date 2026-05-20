@@ -1,0 +1,9 @@
+# Cloudflare Pages configuration.
+# docs.permyt.io is a static Starlight build — no Worker runtime, no adapter.
+#
+# Project settings on the Cloudflare dashboard:
+#   Build command:        npm run build
+#   Build output directory: dist
+#   Environment variable:  NODE_VERSION = 22   (or rely on .nvmrc)
+name = "permyt-docs"
+pages_build_output_dir = "dist"

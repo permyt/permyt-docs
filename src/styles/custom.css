@@ -1,0 +1,175 @@
+/* ───────────────────────────────────────────────────────────────────
+   Permyt documentation theme.
+   Palette and type lifted from the Permyt brand site (style.scss):
+     bg #20252b · bg-2 #1a1e23 · warm white #fdf4f2 · accent #d04b16
+     Space Grotesk (sans) · JetBrains Mono (mono)
+   ─────────────────────────────────────────────────────────────────── */
+
+:root {
+  --sl-font: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --sl-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --sl-content-width: 49rem;
+  --sl-line-height: 1.7;
+  --sl-line-height-headings: 1.22;
+}
+
+/* ── Dark theme (default) ──────────────────────────────────────────── */
+:root,
+::backdrop {
+  --sl-color-white: #fdf4f2;
+  --sl-color-gray-1: #e8e6e1;
+  --sl-color-gray-2: #d0cec9;
+  --sl-color-gray-3: #8b8f96;
+  --sl-color-gray-4: #4d545c;
+  --sl-color-gray-5: #2e343b;
+  --sl-color-gray-6: #1a1e23;
+  --sl-color-black: #20252b;
+
+  --sl-color-accent-low: #43230f;
+  --sl-color-accent: #d04b16;
+  --sl-color-accent-high: #ffb59d;
+
+  --permyt-accent-2: #e87a4e;
+}
+
+/* ── Light theme ───────────────────────────────────────────────────── */
+:root[data-theme='light'],
+[data-theme='light'] ::backdrop {
+  --sl-color-white: #20252b;
+  --sl-color-gray-1: #2c3137;
+  --sl-color-gray-2: #454a50;
+  --sl-color-gray-3: #767169;
+  --sl-color-gray-4: #b1a89f;
+  --sl-color-gray-5: #e2d6ce;
+  --sl-color-gray-6: #f1e6df;
+  --sl-color-gray-7: #fbf2ee;
+  --sl-color-black: #fdf4f2;
+
+  --sl-color-accent-low: #f6dccf;
+  --sl-color-accent: #c2440f;
+  --sl-color-accent-high: #8a3009;
+
+  --permyt-accent-2: #c2440f;
+}
+
+/* ── Type ──────────────────────────────────────────────────────────── */
+::selection {
+  background: var(--sl-color-accent);
+  color: #fff;
+}
+
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3,
+.sl-markdown-content h4,
+.content-panel h1 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Site title in the header reads as a brand element, not a link. */
+.site-title {
+  font-weight: 600;
+}
+
+/* ── Header ────────────────────────────────────────────────────────── */
+header.header {
+  border-bottom: 1px solid var(--sl-color-hairline-shade);
+  backdrop-filter: blur(8px);
+}
+
+/* ── Links ─────────────────────────────────────────────────────────── */
+.sl-markdown-content a:not(:where(.not-content *)) {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--sl-color-accent) 45%, transparent);
+}
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+  text-decoration-color: var(--sl-color-accent);
+}
+
+/* ── Sidebar ───────────────────────────────────────────────────────── */
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover {
+  background-color: var(--sl-color-accent-low);
+  color: var(--sl-color-white);
+  font-weight: 600;
+}
+summary .group-label .large {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* ── Code ──────────────────────────────────────────────────────────── */
+.sl-markdown-content :not(pre) > code {
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.3em;
+  font-size: var(--sl-text-code-sm);
+}
+.sl-markdown-content pre {
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: 0.6rem;
+  line-height: 1.55;
+}
+
+/* ── Tables ────────────────────────────────────────────────────────── */
+.sl-markdown-content table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.sl-markdown-content th {
+  font-weight: 600;
+  color: var(--sl-color-white);
+}
+.sl-markdown-content th,
+.sl-markdown-content td {
+  border: 1px solid var(--sl-color-hairline);
+}
+
+/* ── Blockquotes ───────────────────────────────────────────────────── */
+.sl-markdown-content blockquote {
+  border-inline-start: 2px solid var(--sl-color-accent);
+}
+
+/* ── Cards ─────────────────────────────────────────────────────────── */
+.card {
+  border-radius: 0.7rem;
+  border-color: var(--sl-color-hairline);
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+.card:hover {
+  border-color: color-mix(in srgb, var(--sl-color-accent) 55%, transparent);
+  transform: translateY(-2px);
+}
+.card .icon {
+  color: var(--sl-color-accent);
+  background-color: var(--sl-color-accent-low);
+  border-color: transparent;
+}
+
+/* ── Splash hero ───────────────────────────────────────────────────── */
+.hero h1 {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.hero .tagline {
+  color: var(--sl-color-gray-2);
+  max-width: 38ch;
+}
+.hero img {
+  filter: drop-shadow(0 16px 40px color-mix(in srgb, var(--sl-color-accent) 28%, transparent));
+}
+
+/* The primary call to action in solid brand accent. */
+.hero .actions .action.primary {
+  background: var(--sl-color-accent);
+  border-color: var(--sl-color-accent);
+  color: #fff;
+}
+.hero .actions .action.primary:hover {
+  background: var(--permyt-accent-2);
+  border-color: var(--permyt-accent-2);
+}
